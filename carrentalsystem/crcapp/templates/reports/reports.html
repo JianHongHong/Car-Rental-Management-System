@@ -1,0 +1,87 @@
+<!-- Developer: Frank -->
+{% extends '../base.html' %}
+{% block title %}Reports {{ vehicle.vehicleID }}{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Reports</li>
+{% endblock %}
+{% block content %}
+<!-- Error message box will be shown only if the msg variable has some value -->
+{% if msg != "" %}
+<div class="row">
+<div class="col-md-12 col-sm-12">
+	<!-- Checking whether it is a danger type or info type needed for the box
+		Will be checked by mtype is d or i
+		-->
+	{% if mtype == "d" or mtype == "a" %}
+	<div class="alert alert-danger">
+		{% elif mtype == "i" %}
+		<div class="alert alert-info">
+			{% endif %}
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			{% if mtype == "a" %}
+			{% for key, values in msg %}
+			<p>{{ key }} : {{ values.0 }}</p>
+			{% endfor %}
+			{% else %}
+			<p>{{ msg }}</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+<div class="container">
+    <div class="row boxed p-5">
+        <h5>Total Orders/ Vehicles in each state</h5><br>
+        <hr>
+        <br>
+        <div id="geochart-colors" class="col-md-12" style="height: 433px;"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Line charts with orders and bounce rates</p>
+        </div>
+        <div class="col-md-6">
+            <p>Pie chart with employee statistics</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--
+	All components for the scripts per page goes here.
+	Base.html will contain all the scripts neccessary to the project
+	If you need any new js file add it under the block scripts
+	-->
+{% block scripts %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+        google.charts.load('current', {
+            'packages':['geochart'],
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+          });
+          google.charts.setOnLoadCallback(drawRegionsMap);
+    
+          function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+              ['State', 'Total Orders', 'Total Vehicles'],
+              {% for c in counts %}
+                ['{{ c.2}}', {{ c.1 }}, {{ c.0 }} ],
+                
+                {% endfor %}
+            ]);
+    
+            var options = {
+              backgroundColor: '#fff',
+              region: 'AU',
+              displayMode: 'regions',
+              colorAxis: {colors: ['silver','blue']},
+              resolution: 'provinces'
+            };
+    
+            var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+            chart.draw(data, options);
+          };
+	});
+</script>
+
+{% endblock %}

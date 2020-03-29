@@ -1,0 +1,145 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Se7en">
+
+    <title>{% block title %}Welcome{% endblock %} | Car Rental System</title>
+    <!-- Bootstrap and other plugins -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-datepicker3.standalone.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-timepicker.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/daterangepicker.css" %}">
+    <link rel="stylesheet" href="{% static "css/jquery.dataTables.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/dataTables.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/responsive.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/select2-bootstrap.css" %}">
+   
+    <!-- Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/publicstyles.css" %}">
+
+  </head>
+
+  <body>
+      
+      <nav class="navbar navbar-expand-md navbar-dark bg-light fixed-top">
+          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/vehicles">Vehicles</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/stores">Stores</a>
+                  </li>
+              </ul>
+          </div>
+          <div class="mx-auto order-0">
+              <a class="navbar-brand mx-auto">Car Rental Service</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                  <span class="fas fa-bars font-blue"></span>
+               
+              </button>
+          </div>
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+              <ul class="navbar-nav ml-auto">
+                    {% if request.session.bookings != "" and request.session.bookings != NULL %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/booking">Current Cart</a>
+                                </li>
+
+                            {% endif %}
+                    {% if request.session.uid != "" and request.session.uid != NULL %}
+                        {% if request.session.utype == "Customer" %}
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/system/logoff">Logoff</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/management">Management</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link" href="/system/logoff">Logoff</a>
+                                </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">New user? Sign up</a>
+                        </li>
+                  {% endif %}
+              </ul>
+          </div>
+      </nav>
+
+        <div class="container-fluid p-0">
+            {% block content %}
+            {% endblock %}
+   
+
+       </div> 
+  <script src="{% static "js/jquery-3.3.1.min.js" %}" ></script>
+  <script src="{% static "js/popper.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-datepicker.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-timepicker.min.js" %}" ></script>
+  <script src="{% static "js/daterangepicker.js" %}" ></script>
+  <script src="{% static "js/jquery.dataTables.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.responsive.min.js" %}" ></script>
+  <script src="{% static "js/responsive.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/select2.min.js" %}" ></script>  
+  <script src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js" ></script>
+ 
+  <script src="{% static "js/html2canvas.min.js" %}" ></script>
+  <script src="{% static "js/jspdf.debug.js" %}" ></script>
+  <script src="{% static "js/jquery.easing.min.js" %}" ></script>
+  <script src="{% static "js/publicmain.js" %}" ></script>
+      
+    <script>
+      $('#pickupdate').datepicker({
+            weekStart: 1,
+            daysOfWeekHighlighted: "6,0",
+            autoclose: true,
+            todayHighlight: true,
+         });
+         $('#returndate').datepicker({
+          weekStart: 1,
+          daysOfWeekHighlighted: "6,0",
+          autoclose: true,
+          todayHighlight: true,
+       });
+       $("#pickupStore").select2();
+       $("#returnStore").select2();
+
+
+ 
+         </script>
+         {% block scripts %}
+
+         {% endblock %}
+  </body>
+
+</html>

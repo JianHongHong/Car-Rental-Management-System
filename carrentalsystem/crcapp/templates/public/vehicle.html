@@ -1,0 +1,164 @@
+{% extends '../index.html' %}
+{% block title %}{{ vehicle.makeName | title }} {{ vehicle.model | title}} {% endblock %}
+{% block content %}
+
+
+  <section class="content-section p-3 p-lg-5 d-flex flex-column" id="vehicles">
+        <div class="row pt-4">
+                <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/">Home</a></li>
+                          <li class="breadcrumb-item"><a href="/vehicles">Vehicles</a></li>
+                          <li class="breadcrumb-item active">{{ vehicle.makeName |title }} {{ vehicle.model | title}}</li>
+                        </ol>
+                      </nav>
+          </div>
+    <div class="row">
+        <div class="col-md-8">
+
+                       
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <h5>Vehicle Details</h5>
+                                <hr>
+                                <br>
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="makeName">Make:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                       {{ vehicle.makeName | title }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="model">Model:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.model | title }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="series">Series: </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                       {{ vehicle.series | title }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="year">Year: </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.year }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="enginesize">Engine Size:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group has-feedback">
+                                            {{ vehicle.enginesize }} L
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="seatingCapacity">Seating Capacity: </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {% for p in "x"|ljust:vehicle.seatingCapacity %}
+                                            <i class="fas fa-male fa-2x"></i>
+                                        {% endfor %}
+                                        <small>[ {{vehicle.seatingCapacity}} ]</small>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-md-6 col-sm-12 mt-5 pt-4">
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="fuelSystem">Fuel System:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.fuelSystem | title }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="tankCapacity">Tank Capacity:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.tankcapacity }} L
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="power">Power:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ vehicle.power }} kW
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="standardTransmission">Standard Transmission:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.standardTransmission }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="wheelBase">Wheel Base: </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ vehicle.wheelbase }} mm
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-6 field-label-responsive">
+                                            <label for="bodyType">Body Type: </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ vehicle.bodyType }}
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 field-label-responsive">
+                                        <label for="driveType">Drive Type: </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                       {{ vehicle.driveType }}
+                                    </div>
+                            </div>
+                                
+                                
+                            </div>
+                        </div>
+              
+        </div>
+         <div class=" col-md-4 p-2 boxed mt-5 text-center ">
+            <h4 class="text-center mt-5">Currently in store: {{ store.storeName }} </h4>
+            <i class="fas fa-store-alt fa-7x mt-4"></i>
+            <br>
+            <p class="text-center mt-2">Address: {{ store.street }} <br>{{ store.city }} <br>{{ store.state }} </p>
+            <p class="text-center mt-2">Store Phone: <a href="tel:{{ store.storePhone }}">{{ store.storePhone }} </a></p>
+            <div class="row pt-2 justify-content-center mt-2">
+                <div class="btn btn-default btn-sm divs-center disabled">Add to Order</div>
+            </div>
+         </div>      
+          
+
+    </div>
+
+   
+
+  </section>
+  {% endblock %}

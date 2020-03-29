@@ -1,0 +1,344 @@
+{% extends '../base.html' %}
+
+{% block title %}Create Staff{% endblock %}
+
+{% block breadcrumb %}
+
+<li class="breadcrumb-item active" aria-current="page">Create Staff</li>
+{% endblock %}
+
+{% block content %}
+
+<!-- Error message box will be shown only if the msg variable has some value -->
+{% if msg != "" %}
+<div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- Checking whether it is a danger type or info type needed for the box
+                Will be checked by mtype is d or i
+            -->
+            {% if mtype == "d" or mtype == "a" %}
+            <div class="alert alert-danger">
+            {% elif mtype == "i" %}
+            <div class="alert alert-info">
+            {% endif %}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {% if mtype == "a" %}
+                    {% for key, values in msg %}
+                        <p>{{ key }} : {{ values.0 }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ msg }}</p>
+                {% endif %}
+            </div>
+        </div>
+</div>    
+{% endif %}
+
+<form action="/management/staff/create" method="POST">
+        {% csrf_token %}
+        <div class="container">
+                <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>Register New Staff</h2>
+                            <hr>
+                        </div>
+                </div>
+            <div class="row">
+
+            <div class="col-md-8">
+                    <h5>Personal Details</h5>
+                    <hr>
+                    <br>
+                                <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="firstName">First Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <input type="text" name="firstName" class="form-control" id="firstName"
+                                                       placeholder="First Name" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put first name validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="lastName">Last Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <input type="text" name="lastName" class="form-control" id="lastName"
+                                                       placeholder="Last Name" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put last name validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="row mt-5">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="DOB">Date Of Birth</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <!-- <input type="text" name="DOB" class="form-control" id="DOB"
+                                                       placeholder="date of Birth" required autofocus> -->
+                                                    <input data-date-format="yyyy-mm-dd" name="dob" class="form-control"
+                                                    id="datepicker" placeholder="yyyy-mm-dd" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put DOB validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="TFN">TFN</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <input type="text" name="TFN" class="form-control" id="TFN"
+                                                       placeholder="TFN" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put TFN validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="phoneNumber">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon"></i></div>
+                                                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber"
+                                                       placeholder="Phone Number" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put phone number validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="email">Email Address</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon"></i></div>
+                                                <input type="email" name="email" class="form-control" id="email"
+                                                       placeholder="you@example.com" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle">
+                                                    <!-- Put e-mail validation error messages here -->
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4 pl-2">
+                                        <h5>Address</h5>
+                                        <hr>
+                                        <br>
+                                        <div class="col-md-12 pt-2">
+                                            <div class="row">
+                                                    <div class="col-md-3 field-label-responsive">
+                                                            <label for="streetAddress">Street Address</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                    <div class="input-group-addon" ></i></div>
+                                                                    <input type="text" name="streetAddress" class="form-control" id="streetAddress"
+                                                                           placeholder="Street" required autofocus>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-control-feedback">
+                                                                    <span class="text-danger align-middle">
+                                                                        <!-- Put street address validation error messages here -->
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3 field-label-responsive">
+                                                            <label for="city">City</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                    <div class="input-group-addon" ></i></div>
+                                                                    <input type="text" name="city" class="form-control" id="city"
+                                                                           placeholder="City" required autofocus>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-control-feedback">
+                                                                    <span class="text-danger align-middle">
+                                                                        <!-- Put city validation error messages here -->
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3 field-label-responsive">
+                                                            <label for="postalCode">Postal Code</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                    <div class="input-group-addon" ></i></div>
+                                                                    <input type="text" name="postalCode" class="form-control" id="postalCode"
+                                                                           placeholder="Postal Code" required autofocus>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-control-feedback">
+                                                                    <span class="text-danger align-middle">
+                                                                        <!-- Put postal code validation error messages here -->
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3 field-label-responsive">
+                                                            <label for="state">State</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <select class="custom-select" name="state" required>
+                                                                    <option value="">Select a State</option>
+                                                                    <option value="NSW">New South Wales</option>
+                                                                    <option value="NT">Northern Territory</option>
+                                                                    <option value="QLD">Queensland</option>
+                                                                    <option value="SA">South Australia</option>
+                                                                    <option value="TS">Tasmania</option>
+                                                                    <option value="VIC">Victoria</option>
+                                                                    <option value="WA">Western Australia</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                    </div>
+
+
+
+                    </div>
+                    <div class="col-md-4">
+                            <h5>Store Details</h5>
+                            <hr>
+                            <br>
+                            <div class="row">
+                                    <div class="col-md-3 field-label-responsive">
+                                        <label for="userType">Store</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select class="form-control select2" style="width:180px;" name="storeID" id="storeID" required>
+                                                <option value="">Select store</option>
+                                                {% for s in stores %}
+                                                <option value="{{ s.storeID }}">{{ s.storeName }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-3 field-label-responsive">
+                                            <label for="userType">User Type</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" >
+                                                <select class=" form-control select2" style="width:180px;" id="userType" name="userType" required>
+                                                    <option value="">Select a user type</option>
+                                                    <option value="Manager">Manager</option>
+                                                    <option value="Staff">Staff</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row text-center pt-3 pl-5">
+                                            <button type="submit" class="btn btn-flat btn-success"><i class="fa fa-user-plus"></i> Register</button>
+
+                                        </div>
+                    </div>
+                    
+            </div>
+            </div>
+  </form>
+
+
+{% endblock %}
+
+<!--
+    All components for the scripts per page goes here.
+    Base.html will contain all the scripts neccessary to the project
+    If you need any new js file add it under the block scripts
+-->
+{% block scripts %}
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            weekStart: 1,
+            daysOfWeekHighlighted: "6,0",
+            autoclose: true,
+            todayHighlight: true,
+         });
+        $('#userType').select2();
+        $('#storeID').select2();
+    });
+</script>
+
+
+{% endblock %}

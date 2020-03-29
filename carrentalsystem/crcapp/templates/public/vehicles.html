@@ -1,0 +1,64 @@
+{% extends '../index.html' %}
+{% block title %}Vehicles{% endblock %}
+{% block content %}
+
+
+  <section class="content-section p-3 p-lg-5 d-flex flex-column" id="vehicles">
+        <div class="row pt-4">
+                <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/">Home</a></li>
+                          <li class="breadcrumb-item active">Vehicles</li>
+                        </ol>
+                      </nav>
+          </div>
+    <h4 class="mb-5 mt-2">Vehicles</h4>
+    <div class="row">
+
+        {% for item in vehicles  %}
+     <div class="col-md-2 items p-2 text-center">
+         <div class="item p-3">
+                <h5><small>Make:</small> {{ item.makeName | title  | truncatechars:15}}</h5>
+                <p><small>Model:</small> {{ item.model | title   | truncatechars:10}}</p>
+                <p><small>Series:</small> {{ item.series | title  | truncatechars:10 }}</p>
+                <p><small>Year:</small> {{ item.year }}</p>
+                <img src="static/images/carIcon.png" class="img-responsive img-center" width="50%">
+                <a href="/vehicle/{{ item.vehicleID }}"> <p class="btn btn-primary btn-sm">View More Details</p></a>
+         </div>
+         
+        
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-8">
+                {% if vehicles.has_other_pages %}
+                <ul class="pagination">
+                  {% if vehicles.has_previous %}
+                    <li class="page-item"><a href="?page={{ vehicles.previous_page_number }}" class="page-link">&laquo;</a></li>
+                  {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                  {% endif %}
+                  {% for i in vehicles.paginator.page_range %}
+                    {% if vehicles.number == i %}
+                      <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                      <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if vehicles.has_next %}
+                    <li class="page-item"><a href="?page={{ vehicles.next_page_number }}" class="page-link">&raquo;</a></li>
+                  {% else %}
+                    <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                  {% endif %}
+                </ul>
+              {% endif %}
+              
+              
+        </div>
+    </div>
+
+  </section>
+  {% endblock %}

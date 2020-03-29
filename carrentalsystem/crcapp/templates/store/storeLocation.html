@@ -1,0 +1,152 @@
+{% extends '../base.html' %}
+
+{% block title %}Stores{% endblock %}
+
+{% block breadcrumb %}
+
+<li class="breadcrumb-item active" aria-current="page">Stores</li>
+{% endblock %}
+{% block content %}
+
+  <section class="content-section p-3 p-lg-5 d-flex flex-column" id="stores">
+    <h3 class="mb-5 mt-2">Stores</h3>
+      <div class="panel-group" id="accordion">
+        <div class="card">
+          <div class="card-header" id="heading0">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">
+                  New South Wales &nbsp;</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="collapse0" class="panel-collapse collapse in">
+            <div class="panel-body row">
+              {% for store in NSW  %}
+              <div class="col-md-2 items p-2 text-center">
+                  <div class="item p-3">
+                          <h5>{{store.storeName}}</h5>
+                          <p><small>Street:</small> {{store.street}}</p>
+                          <p><small>City:</small> {{store.city}}</p>
+                          <p><small>State:</small> {{store.state }}</p>
+                          <p><small>Contact Number:</small> {{store.storePhone}}</p>
+                  </div>
+                </div>
+                {% endfor %}            
+            </div>
+          </div>
+        <div class="card">
+          <div class="card-header" id="heading1">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                  Queensland &nbsp;</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body row">
+              {% for store in QLD  %}
+              <div class="col-md-2 items p-2 text-center">
+                  <div class="item p-3">
+                          <h5>{{store.storeName}}</h5>
+                          <p><small>Street:</small> {{store.street}}</p>
+                          <p><small>City:</small> {{store.city}}</p>
+                          <p><small>State:</small> {{store.state }}</p>
+                          <p><small>Contact Number:</small> {{store.storePhone}}</p>
+                  </div>
+                </div>
+                {% endfor %}            
+            </div>
+          </div>
+        <div class="card">
+          <div class="card-header" id="heading2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                  South Australia &nbsp;</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="collapse2" class="panel-collapse collapse in">
+            <div class="panel-body row">
+              {% for store in SA  %}
+              <div class="col-md-2 items p-2 text-center">
+                  <div class="item p-3">
+                          <h5>{{store.storeName}}</h5>
+                          <p><small>Street:</small> {{store.street}}</p>
+                          <p><small>City:</small> {{store.city}}</p>
+                          <p><small>State:</small> {{store.state }}</p>
+                          <p><small>Contact Number:</small> {{store.storePhone}}</p>
+                  </div>
+                </div>
+                {% endfor %}            
+            </div>
+          </div>
+        <div class="card">
+          <div class="card-header" id="heading3">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                  Tasmania &nbsp;</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="collapse3" class="panel-collapse collapse in">
+            <div class="panel-body row">
+              {% for store in TAS  %}
+              <div class="col-md-2 items p-2 text-center">
+                  <div class="item p-3">
+                          <h5>{{store.storeName}}</h5>
+                          <p><small>Street:</small> {{store.street}}</p>
+                          <p><small>City:</small> {{store.city}}</p>
+                          <p><small>State:</small> {{store.state }}</p>
+                          <p><small>Contact Number:</small> {{store.storePhone}}</p>
+                  </div>
+                </div>
+                {% endfor %}            
+            </div>
+          </div>
+        <div class="card">
+          <div class="card-header" id="heading4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                  Victoria &nbsp; </a>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div id="collapse4" class="panel-collapse collapse in">
+            <div class="panel-body row">
+              {% for store in VIC  %}
+              <div class="col-md-2 items p-2 text-center">
+                  <div class="item p-3">
+                          <h5>{{store.storeName}}</h5>
+                          <p><small>Street:</small> {{store.street}}</p>
+                          <p><small>City:</small> {{store.city}}</p>
+                          <p><small>State:</small> {{store.state }}</p>
+                          <p><small>Contact Number:</small> {{store.storePhone}}</p>
+                  </div>
+                </div>
+                {% endfor %}            
+            </div>
+          </div>
+        </div>
+</section>
+
+{% endblock %}

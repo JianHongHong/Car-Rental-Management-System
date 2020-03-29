@@ -1,0 +1,217 @@
+{% extends '../base.html' %}
+
+{% block title %}Search Staff{% endblock %}
+
+{% block breadcrumb %}
+
+<li class="breadcrumb-item active" aria-current="page">Search Staff</li>
+{% endblock %}
+
+
+{% block content %}
+
+<br>
+<hr>
+<br>
+<div id="searchTab p-2 mb-5">
+    <div class="form-group row">
+            <div class="col-md-3 field-label-responsive">
+                    <label for="userType">Select category to view staff</label>
+            </div>
+            <div class="form-group col-md-6">
+                <select class="form-control select2 p-2" style="width:280px;" name="staffID" id="staffID" required>
+                    <option value="">Select category</option>
+                    {% for field in fields %}
+                    {% if field.name == "order" %}
+                    {% elif field.name == "inspects" %}
+                    {% elif field.name == "disable" %}
+                    {% else %}
+                    <option value="{{ field }}">{{ field.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                    <div id="btnStaff" class="btn btn-flat btn-primary">SELECT</div>
+            </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-3 field-label-responsive">
+        <label for="userType">Input search field</label>
+      </div>
+      <div class="form-group col-md-6">
+        <input class="form-control" type="text" style="width:280px;" placeholder="Input Search" id="SearchInput">
+      </div>
+    </div>
+</div>
+<br>
+<hr>
+<br>
+<div id="dtView" class="pt-4">
+        <table id="tbl" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+                <caption>All registered staff</caption>
+              <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>City</th>
+                <th>Postal Code</th>
+                <th>State</th>
+                <th>DOB</th>
+                <th>TFN</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>User Type</th>
+                <th>Date Joined</th>
+                <th>Last Login</th>
+                <th>Store</th>
+              </tr>
+              </thead>
+              <tbody id="records">
+
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>City</th>
+                <th>Postal Code</th>
+                <th>State</th>
+                <th>DOB</th>
+                <th>TFN</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>User Type</th>
+                <th>Date Joined</th>
+                <th>Last Login</th>
+                <th>Store</th>
+              </tr>
+              </tfoot>
+            </table>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+         $(document).ready(function() {
+            $("#dtView").hide();
+            $('#field').select2();
+        });
+        
+        $("#btnStaff").click(function(){
+            $.ajax({
+                url: "/staff/store",
+                type : 'POST', 
+                data: {field:$('#field').val()},
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(result){
+                    // converting the result string to JSON array
+                    var result = JSON.parse(result);
+                    var rows = ''; //initialising a string variable
+                    
+                    // Adding values to the string by iterating the array
+                    for(var i=0; i < result.length; i++ ){
+                        rows += '<tr>'+
+                                '<td>'+result[i]['pk']+'</a></td>'+
+                                '<td>'+result[i]['fields']['firstName']+' '+result[i]['fields']['lastName']+'</td>'+
+                                '<td>'+result[i]['fields']['email']+'</td>'+
+                                '<td>'+result[i]['fields']['userName']+'</td>'+
+                                '<td>'+result[i]['fields']['userType']+'</td>'+
+                                '<td>'+result[i]['fields']['dateJoined']+'</td>'+  
+                                '</tr>';
+                    }
+                    // adding the rows string to #records component to populate as HTML
+                    $("#records").html(rows);
+                    // showing the table
+                    $("#dtView").show();
+                    // datatable initialising
+                        $('#tbl').DataTable({
+                            'retrieve': true,
+                            'paging'      : true, // for pagination
+                            'lengthChange': false,
+                            'searching'   : false, //searching
+                            'ordering'    : true, //sorting
+                            'info'        : true,
+                            'autoWidth'   : true, // keep this true
+                            'sScrollX': '100%', // this too
+                            "lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]], // for number of items 
+      
+                              'dom': 'Bfrtip', //export buttons
+                              'buttons': [
+                                {
+                                  extend: 'copyHtml5',
+                                  text: 'Copy',
+                                  className: 'btn btn-flat btn-primary',
+                                },
+                                {
+                                  extend: 'excelHtml5',
+                                  text: 'Export to Excel',
+                                  className: 'btn btn-flat btn-primary',
+                                },
+                                {
+                                  extend: 'print',
+                                  className: 'btn btn-flat btn-primary',
+                                  customize: function ( win ) {
+                                    $(win.document.body).css('background', '#fff');
+                                    $(win.document.body).css('padding', '20px');
+                                  }
+      
+                                }
+      
+                              ]
+                          })
+                    
+                }});
+            
+            
+        })
+//datatable initialising
+  // $('#tbl').DataTable({
+  //     'retrieve': true,
+  //     'paging'      : true, // for pagination
+  //     'lengthChange': false,
+  //     'searching'   : true, //searching
+  //     'ordering'    : true, //sorting
+  //     'info'        : true,
+  //     'autoWidth'   : true, // keep this true
+  //     'sScrollX': '100%', // this too
+  //     "lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]], // for number of items
+
+  //       'dom': 'Bfrtip', //export buttons
+  //       'buttons': [
+  //         {
+  //           extend: 'copyHtml5',
+  //           text: 'Copy',
+  //           className: 'btn btn-flat btn-primary',
+  //         },
+  //         {
+  //           extend: 'excelHtml5',
+  //           text: 'Export to Excel',
+  //           className: 'btn btn-flat btn-primary',
+  //         },
+  //         {
+  //           extend: 'print',
+  //           className: 'btn btn-flat btn-primary',
+  //           customize: function ( win ) {
+  //             $(win.document.body).css('background', '#fff');
+  //             $(win.document.body).css('padding', '20px');
+  //           }
+
+  //         }
+
+  //       ]
+  //   })
+
+</script>
+
+
+{% endblock %}

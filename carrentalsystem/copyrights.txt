@@ -1,0 +1,8 @@
+Project                 : Car Rental System
+Project team            : Se7en Team
+Authors                 :   Francis King
+                            Samuel Gillespie
+                            Aidan Perera
+                            JianHong Lee
+                            Tom Kirby
+Development Start Date  : 17 August 2018

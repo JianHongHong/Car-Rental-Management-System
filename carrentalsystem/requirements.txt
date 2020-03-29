@@ -1,0 +1,6 @@
+Django
+django-bootstrap4
+mysql-connector-python
+mysqlclient
+django[argon2]
+selenium

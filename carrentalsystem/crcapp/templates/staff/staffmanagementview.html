@@ -1,0 +1,127 @@
+{% extends '../base.html' %}
+
+{% block title %}Staff Management{% endblock %}
+
+{% block breadcrumb %}
+
+<li class="breadcrumb-item active" aria-current="page">Staff Management</li>
+{% endblock %}
+
+
+{% block content %}
+
+<br>
+<hr>
+<br>
+<div id="dtView" class="pt-4">
+        <table id="tbl" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+              <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th class="select-filter">Store</th>
+                <th class="select-filter">User Type</th>
+                <th class="select-filter">Date Joined</th>
+              </tr>
+              </thead>
+              <tbody id="records">
+                    {% for staff in employees %}
+                    
+                    <tr>
+                            <td class="pdttable"><a href="/management/staff/id/{{ staff.employeeID }}">{{ staff.employeeID }}</a></td>
+                            <td class="pdttable">{{ staff.firstName }} {{ staff.lastName}}</td>
+                            <td class="pdttable">{{ staff.email }}</td>
+                            <td class="pdttable">
+                                    {{ staff.storeID.storeName }}
+
+                            </td>  
+                            <td class="pdttable">{{ staff.userType }}</td> 
+                            <td class="pdttable">{{ staff.dateJoined }}</td>                        
+                        </tr>
+                    {% endfor %}
+              </tbody>
+              <tfoot>
+              <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Store</th>
+                    <th>User Type</th>
+                    <th>Date Joined</th>
+              </tr>
+              </tfoot>
+            </table>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+        
+
+         $(document).ready(function() {
+                    // datatable initialising
+                        $('#tbl').DataTable({
+                          initComplete: function () {
+                            this.api().columns('.select-filter').every( function () {
+                            var column = this;
+                            var select = $('<select><option value=""></option></select>')
+                                .appendTo( $(column.footer()).empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+            
+                                    column
+                                        .search( val ? '^'+val+'$' : '', true, false )
+                                        .draw();
+                                } );
+            
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+                            } );
+                          },
+                            'paging'      : true, // for pagination
+                            'lengthChange': false,
+                            //'searching'   : false, //searching
+                            'ordering'    : true, //sorting
+                            'info'        : true,
+                            'autoWidth'   : true, // keep this true
+                            'sScrollX': '100%', // this too
+                            "lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]], // for number of items 
+      
+                              'dom': 'Bfrtip', //export buttons
+                              'buttons': [
+                                {
+                                  extend: 'copyHtml5',
+                                  text: 'Copy',
+                                  className: 'btn btn-flat btn-primary',
+                                },
+                                {
+                                  extend: 'excelHtml5',
+                                  text: 'Export to Excel',
+                                  className: 'btn btn-flat btn-primary',
+                                },
+                                {
+                                  extend: 'print',
+                                  className: 'btn btn-flat btn-primary',
+                                  customize: function ( win ) {
+                                    $(win.document.body).css('background', '#fff');
+                                    $(win.document.body).css('padding', '20px');
+                                  }
+      
+                                }
+      
+                              ]
+                          })
+                 
+        });
+        
+      </script>
+
+
+{% endblock %}

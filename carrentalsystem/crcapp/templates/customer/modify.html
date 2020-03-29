@@ -1,0 +1,181 @@
+{% extends '../base.html' %}
+{% block title %}{{currentOperation}} Customer{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'viewCustomers' %}">Customer Management</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ customer.firstName }} {{ customer.lastName }}</li>
+{% endblock %}
+{% block content %}
+<!-- Error message box will be shown only if the msg variable has some value -->
+{% if msg != "" %}
+<div class="col-md-12 col-sm-12">
+	<!-- Checking whether it is a danger type or info type needed for the box
+		Will be checked by mtype is d or i
+		-->
+	{% if mtype == "d" or mtype == "a" %}
+		<div class="alert alert-danger">
+	{% elif mtype == "i" %}
+		<div class="alert alert-info">
+	{% endif %}
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	{% if mtype == "a" %}
+		{% for key, values in msg %}
+			<p>{{ key }} : {{ values.0 }}</p>
+		{% endfor %}
+	{% else %}
+		<p>{{ msg }}</p>
+	{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+	<div class="container">
+		<div class="col-md-12 text-center">
+			<h2>{{ customer.firstName }} {{ customer.lastName }}</h2>
+			<hr>
+		</div>
+		<form action="{{ request.get_full_path }}" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="customerID" value="{{ customer.customerID }}"/>
+		<div class="row col-md-12">
+			<h4>Name</h4>
+		</div>
+		<div class="form-group row">
+			<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+			<div class="col-sm-4">
+				<input type="text" name="firstName" class="form-control" id="firstName"
+				placeholder="First Name" value="{{ customer.firstName }}" required>
+			</div>
+			<label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+			<div class="col-sm-4">
+				<input type="text" name="lastName" class="form-control" id="lastName"
+				placeholder="Last Name" value="{{ customer.lastName }}" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="gender" class="col-sm-2 col-form-label">Gender</label>
+			<div class="col-sm-10">
+				<select class="custom-select" name="gender" required>
+					<option value="" selected disabled>Select a Gender</option>
+					<option value="M" {% if customer.gender == "M" %}  selected="selected" {% endif %}>Male</option>
+					<option value="F" {% if customer.gender == "F" %}  selected="selected" {% endif %}>Female</option>
+					<option value="O" {% if customer.gender == "O" %}  selected="selected" {% endif %}>Other</option>
+				</select>
+			</div>
+		</div>
+		<div class="row col-md-12 mb-2">
+			<h4>Address</h4>
+		</div>
+		<div class="form-group row">
+			<label for="streetAddress" class="col-sm-2 col-form-label">Street Address</label>
+			<div class="col-sm-4 mb-3">
+				<input type="text" name="streetAddress" class="form-control" id="streetAddress"
+				placeholder="Street" value="{{ customer.streetAddress }}" required>
+			</div>
+			<label for="city" class="col-sm-2 col-form-label">City</label>
+			<div class="col-sm-4 mb-2">
+				<input type="text" name="cityAddress" class="form-control" id="city"
+				placeholder="City" value="{{ customer.city }}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="postCodeAddress" class="col-sm-2 col-form-label">Postal Code</label>
+			<div class="col-sm-4 mb-3">
+				<input type="text" name="postCodeAddress" class="form-control" id="postalCode"
+				placeholder="Postal Code" value="{{ customer.postalCode }}">
+			</div>
+			<label for="stateAddress" class="col-sm-2 col-form-label">State</label>
+				<div class="col-sm-4 mb-3">
+					<select class="custom-select" name="stateAddress">
+						<option value="" disabled selected>Select a State</option>
+						<option value="NSW" {% if customer.stateAddress == "NSW" %}  selected="selected" {% endif %}>New South Wales</option>
+						<option value="NT" {% if customer.stateAddress == "NT" %}  selected="selected" {% endif %}>Northern Territory</option>
+						<option value="QLD" {% if customer.stateAddress == "QLD" %}  selected="selected" {% endif %}>Queensland</option>
+						<option value="SA" {% if customer.stateAddress == "SA" %}  selected="selected" {% endif %}>South Australia</option>
+						<option value="TS" {% if customer.stateAddress == "TS" %}  selected="selected" {% endif %}>Tasmania</option>
+						<option value="VIC" {% if customer.stateAddress == "VIC" %}  selected="selected" {% endif %}>Victoria</option>
+						<option value="WA" {% if customer.stateAddress == "WA" %}  selected="selected" {% endif %}>Western Australia</option>
+					</select>
+				</div>
+		</div>
+		<div class="row col-md-12 mb-2">
+			<h4>Other Details</h4>
+		</div>
+		<div class="form-group row">
+			<label for="driverLicenseNumber" class="col-sm-3 col-form-label">Drivers License Number</label>
+			<div class="col-sm-7 mb-2">
+				<input type="text" name="driverLicenseNumber" class="form-control" id="DriverLicenseNumber"
+				placeholder="Drivers License Number" value="{{ customer.DriverLicenseNumber }}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="DOB" class="col-sm-3 col-form-label">Date Of Birth</label>
+			<div class="col-sm-7 mb-2">
+				<input data-date-format="yyyy-mm-dd" class="form-control"
+				id="DOB" name="DOB" placeholder="yyyy-mm-dd" value="{{ customer.DOB|date:'Y-m-d' }}" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+			<div class="col-sm-7 mb-2">
+				<input type="text" name="phoneNumber" class="form-control" id="phoneNumber"
+				placeholder="Phone Number" value="{{ customer.phoneNumber }}" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="email" class="col-sm-3 col-form-label">Email Address</label>
+			<div class="input-group col-sm-7 mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">@</span>
+				</div> 
+				<input type="email" name="email" class="form-control" id="email"
+				placeholder="you@example.com" value="{{ customer.email }}">
+			</div>
+		</div>
+		<div class="form-group row">
+				<label for="occupation" class="col-sm-3 col-form-label">Occupation</label>
+			<div class="col-sm-7 mb-3">
+				<input type="text" name="occupation" class="form-control" id="occupation"
+				placeholder="Occupation" value="{{ customer.occupation }}" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-6">
+				<button type="submit" class="btn btn-success btn-block" value="Save"><i class="fas fa-save"></i> Save</button>
+			</div>
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#customerDelete"><i class="far fa-times-circle"></i> Delete</button>
+				{% comment %} <button type="submit" class ="btn btn-danger btn-block" value="Delete"><i class="far fa-times-circle"></i> Delete</button> {% endcomment %}
+			</div>
+		</div>
+	</div>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="customerDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+		  		<h5 class="modal-title" id="exampleModalLabel">Delete Customer</h5>
+		  		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">Are you sure you wish to delete the customer {{ customer.firstName}} {{ customer.lastName }}
+				with the ID of {{ customer.customerID}}?
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<a class="btn btn-primary" href="{{ request.get_full_path }}/delete" role="button">Yes</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	$("#DOB").datepicker({
+	    weekStart: 1,
+	    daysOfWeekHighlighted: "6,0",
+	    autoclose: true,
+	    todayHighlight: true,
+	});
+</script>
+{% endblock %}

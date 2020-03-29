@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Se7en">
+
+    <title>{% block title %}{% endblock %} | Car Rental System</title>
+
+    <!-- Bootstrap and other plugins -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-datepicker3.standalone.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-timepicker.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/daterangepicker.css" %}">
+    <link rel="stylesheet" href="{% static "css/jquery.dataTables.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/dataTables.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/responsive.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/select2-bootstrap.css" %}">
+   
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- CRC Styles -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+   
+    
+              
+              <section class="content"> 
+                  <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        {% block breadcrumb %}
+                        {% endblock %}
+                      </ol>
+                    </nav>
+                  
+                      {% block content %}
+                {% endblock %}
+                
+              
+              </section>
+        
+      
+      
+  
+      
+        
+
+
+
+  
+      <footer class="footer">
+        <div class="container">
+          <div class="row justify-content-center text-center">
+            <div class="col-4">
+                <p class="mt-5 mb-3 text-muted">&copy; 2018 | Se7en | Team #23</p>
+            </div>
+            </div>
+        </div>
+      </footer>
+  </body>
+
+<!-- Scripts -->
+  <script src="{% static "js/jquery-3.3.1.min.js" %}" ></script>
+  <script src="{% static "js/popper.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-datepicker.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-timepicker.min.js" %}" ></script>
+  <script src="{% static "js/daterangepicker.js" %}" ></script>
+  <script src="{% static "js/jquery.dataTables.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.responsive.min.js" %}" ></script>
+  <script src="{% static "js/responsive.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/select2.min.js" %}" ></script>  
+  <script src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js" ></script>
+  <script src="{% static "js/html2canvas.min.js" %}" ></script>
+  <script src="{% static "js/jspdf.debug.js" %}" ></script>
+  <script src="{% static "js/main.js" %}" ></script>
+  {% block scripts %}
+  {% endblock %}
+</html>

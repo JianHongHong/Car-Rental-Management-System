@@ -1,0 +1,297 @@
+{% extends '../index.html' %}
+{% block title %}{{ customer.firstName | title }} {{ customer.lastName| title}} Profile{% endblock %}
+{% block content %}
+
+
+  <section class="content-section p-3 p-lg-5 d-flex flex-column" id="vehicles">
+        <div class="row pt-4">
+                <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/">Home</a></li>
+                          <li class="breadcrumb-item">Profile</li>
+                          <li class="breadcrumb-item active">{{ customer.firstName | title }} {{ customer.lastName| title}}</li>
+                        </ol>
+                      </nav>
+          </div>
+    <div class="row">
+            <div class="container">
+                    <div class="row">
+                            <div class="col-sm-10"><h2>{{ customer.firstName | title }} {{ customer.lastName| title}}</h2>
+                          <h5>{{ customer.userName }}</h5></div>
+                    </div>
+                    <div class="row">
+                          <div class="col-sm-3"><!--left col-->
+                              
+                          
+                          <ul class="list-group pt-5">
+                            <li class="list-group-item text-muted">Activity &nbsp;&nbsp;<i class="fas fa-tachometer-alt ml-2"></i></li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Last Login</strong></span> {{ customer.lastLogin}}</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Member Since</strong></span> {{ customer.dateJoined}}</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Total Orders</strong></span> {{ orders.count }}</li>
+                          </ul> 
+                               
+                         
+                          
+                        </div><!--/col-3-->
+                        <div class="col-sm-9">
+                                {% if msg != "" %}
+                                <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <!-- Checking whether it is a danger type or info type needed for the box
+                                        Will be checked by mtype is d or i
+                                        -->
+                                    {% if mtype == "d" or mtype == "a" %}
+                                    <div class="alert alert-danger">
+                                        {% elif mtype == "i" %}
+                                        <div class="alert alert-info">
+                                            {% endif %}
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            {% if mtype == "a" %}
+                                            {% for k,v in msg.items %}
+                                            <p>{{ k | title }} : {{ v.0 }}</p>
+                                            {% endfor %}
+                                            {% else %}
+                                            <p>{{ msg }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            <div class="row">
+                                    <ul class="nav nav-tabs nav-justified">
+                                            <li class="active"><a data-toggle="tab" href="#orders">Orders</a></li>
+                                            <li><a data-toggle="tab" href="#profile">Change Information</a></li>
+                                            <li><a data-toggle="tab" href="#security">Security Information</a></li>
+                                          </ul>
+                            </div>
+                               
+                
+                              
+                          <div class="tab-content">
+                            <div class="tab-pane active fade out show" id="orders">
+                                <hr>
+                                <div class="container">
+                                   
+                                            {% if orders.count != 0 %}
+                                                        {% for order in orders reversed %}
+                                                        <div class="row orderTabs pt-2 pb-2">
+                                                                  <div class="col-md-2"><small>Order #: {{ order.orderID }}</small></div>
+                                                                  <div class="col-md-5">You made and order. Pick the vehicle from {{ order.pickupStoreID.storeName }} 
+                                                                      on the {{ order.orderDate | date:"d M, Y" }} and return it to {{ order.returnStoreID.storeName }}
+                                                                    on the {{ order.returnDate | date:"d M, Y" }} </div>
+                                                                  <div class="col-md-3">
+                                                                      <small>
+                                                                            Pick up date: {{ order.pickupDate | date:"d M, Y" }}
+                                                                            <br>
+                                                                            Return date: {{ order.returnDate | date:"d M, Y" }}
+                                                                            </small> 
+                                                                    </div>                                                                  
+                                                                  <div class="col-md-2"><div class="btn disabled btn-primary btn-sm divs-center mt-3 " >Check Invoice</div></div>
+                                                            </div>
+                                                            {% endfor %}
+                                           {% else %}
+
+                                           <div class="row orderTabs">
+                                               <div class="col-md-12"><p class="text-center">You have not made any order</p></div>
+                                               
+                                               </div>
+
+                                           {% endif %}
+                                </div>
+                               
+                              
+                              
+                              <hr>
+                              
+                             </div><!--/tab-pane-->
+                             <div class="tab-pane fade in pt-5" id="profile">
+                               
+                               <h5>Change your personal details</h5>
+                               
+                               <hr>
+                               <small>
+                               <form action="/profile/update" method="POST">
+                                <input type="hidden" name="customerID" value="{{ customer.customerID }}"/>
+                                <input type="hidden" name="gender" value="{{ customer.gender }}"/>
+                                {% csrf_token %}
+                                <div class="row col-md-12">
+                                <h6>Name</h6>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="firstName" class="form-control" id="firstName"
+                                        placeholder="First Name" value="{{ customer.firstName }}" required>
+                                    </div>
+                                    <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="lastName" class="form-control" id="lastName"
+                                        placeholder="Last Name" value="{{ customer.lastName }}" required>
+                                    </div>
+                                </div>
+                                <div class="row col-md-12 mb-2">
+                                    <h6>Address</h6>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="streetAddress" class="col-sm-2 col-form-label">Street Address</label>
+                                    <div class="col-sm-4 mb-3">
+                                        <input type="text" name="streetAddress" class="form-control" id="streetAddress"
+                                        placeholder="Street" value="{{ customer.streetAddress }}">
+                                    </div>
+                                    <label for="city" class="col-sm-2 col-form-label">City</label>
+                                    <div class="col-sm-4 mb-2">
+                                        <input type="text" name="cityAddress" class="form-control" id="city"
+                                        placeholder="City" value="{{ customer.cityAddress }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="postCodeAddress" class="col-sm-2 col-form-label">Postal Code</label>
+                                    <div class="col-sm-4 mb-3">
+                                        <input type="number" name="postCodeAddress" class="form-control" id="postalCode"
+                                        placeholder="Postal Code" value="{{ customer.postCodeAddress }}">
+                                    </div>
+                                    <label for="stateAddress" class="col-sm-2 col-form-label">State</label>
+                                        <div class="col-sm-4 mb-3">
+                                            <select class="custom-select" name="stateAddress">
+                                                <option value="">Select a State</option>
+                                                <option value="NSW" {% if customer.stateAddress == "NSW" %}  selected="selected" {% endif %}>New South Wales</option>
+                                                <option value="NT" {% if customer.stateAddress == "NT" %}  selected="selected" {% endif %}>Northern Territory</option>
+                                                <option value="QLD" {% if customer.stateAddress == "QLD" %}  selected="selected" {% endif %}>Queensland</option>
+                                                <option value="SA" {% if customer.stateAddress == "SA" %}  selected="selected" {% endif %}>South Australia</option>
+                                                <option value="TS" {% if customer.stateAddress == "TS" %}  selected="selected" {% endif %}>Tasmania</option>
+                                                <option value="VIC" {% if customer.stateAddress == "VIC" %}  selected="selected" {% endif %}>Victoria</option>
+                                                <option value="WA" {% if customer.stateAddress == "WA" %}  selected="selected" {% endif %}>Western Australia</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="row col-md-12 mb-2">
+                                    <h6>Other Details</h6>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="driverLicenseNumber" class="col-sm-3 col-form-label">Drivers License Number</label>
+                                    <div class="col-sm-7 mb-2">
+                                        <input type="number" name="driverLicenceNumber" class="form-control" id="DriverLicenseNumber"
+                                        placeholder="Drivers License Number" value="{{ customer.driverLicenceNumber }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="DOB" class="col-sm-3 col-form-label">Date Of Birth</label>
+                                    <div class="col-sm-7 mb-2">
+                                        <input data-date-format="yyyy-mm-dd" class="form-control"
+                                        id="datepicker" placeholder="yyyy-mm-dd" name="DOB" value="{{ customer.DOB |date:'Y-m-d' }}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+                                    <div class="col-sm-7 mb-2">
+                                        <input type="number" name="phoneNumber" class="form-control" id="phoneNumber"
+                                        placeholder="Phone Number" value="{{ customer.phoneNumber }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-sm-3 col-form-label">Email Address</label>
+                                    <div class="input-group col-sm-7 mb-2">
+                                        <input type="email" name="email" class="form-control" id="email"
+                                        placeholder="you@example.com" value="{{ customer.email }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label for="occupation" class="col-sm-3 col-form-label">Occupation</label>
+                                    <div class="col-sm-7 mb-3">
+                                        <input type="text" name="occupation" class="form-control" id="occupation"
+                                        placeholder="Occupation" value="{{ customer.occupation }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <div class="col-sm-6 divs-center">
+                                            <button type="submit" class="btn btn-success btn-block" value="Save"><i class="fas fa-save"></i> Save</button>
+                                        </div>
+                                    </div>
+                                  </form>
+                                </small>
+                             </div><!--/tab-pane-->
+                             
+
+                             <div class="tab-pane fade in pt-5" id="security">
+                               
+                                    <h5>Change your passwords</h5>
+                                    
+                                    <hr>
+                                    <small>
+                                    <form action="/profile/update/password" method="POST">
+                                     <input type="hidden" name="customerID" value="{{ customer.customerID }}"/>
+                                     {% csrf_token %}
+                                     <div class="form-group row">
+                                         <label for="firstName" class="col-sm-2 col-form-label">Password</label>
+                                         <div class="col-sm-4">
+                                             <input type="password" name="password" class="form-control" id="password"
+                                             placeholder="Min: 6 characters"  required>
+                                         </div>
+                                         <label for="lastName" class="col-sm-2 col-form-label">Confirm Password</label>
+                                         <div class="col-sm-4">
+                                             <input type="password" name="confirmpassword" class="form-control" id="confpassword"
+                                             placeholder="Min: 6 characters" required>
+                                             <div class="form-control-feedback">
+                                                    <p class="text-danger text-center" id="alertPW">
+                                                        <!-- Put e-mail validation error messages here -->
+                                                    </p>
+                                                </div>
+                                         </div>
+                                     </div>
+                                     
+                                     
+                                     <div class="form-group row">
+                                             <div class="col-sm-6 divs-center">
+                                                 <button type="submit" class="btn btn-success btn-block" id="pwsave" value="Save"><i class="fas fa-save"></i> Save</button>
+                                             </div>
+                                         </div>
+                                       </form>
+                                     </small>
+                                  </div><!--/tab-pane-->
+
+
+                          </div><!--/tab-content-->
+                
+                        </div><!--/col-9-->
+                    </div> 
+          
+
+    </div>
+
+   
+
+  </section>
+  {% endblock %}
+
+
+  {% block scripts %}
+  <script>
+        $(document).ready(function() {
+            
+            $('ul.nav-tabs li a').click(function (e) {
+                $('ul.nav-tabs li.active').removeClass('active')
+                $(this).parent('li').addClass('active')
+              })
+
+              $("#datepicker").datepicker({
+                weekStart: 1,
+                daysOfWeekHighlighted: "6,0",
+                autoclose: true,
+                todayHighlight: true,
+            });
+            $("#pwsave").hide();
+
+           
+              
+        })
+        $("#confpassword").change(function(){
+            if($("#password").val() != $("#confpassword").val()){
+                $("#alertPW").html("Sorry, the passwords do not match.");
+                $("#pwsave").hide();
+            }else{
+                $("#alertPW").html("");
+                $("#pwsave").show();
+            }
+        })
+  </script>
+  {% endblock %}

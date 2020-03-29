@@ -1,0 +1,48 @@
+{% extends '../index.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<section class="content-section p-3 p-lg-5 d-flex flex-column" id="login">
+        <div class="row pt-4">
+                <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/">Home</a></li>
+                          <li class="breadcrumb-item active">Login</li>
+                        </ol>
+                      </nav>
+          </div>
+      <div class="container mt-3 pt-5">
+         
+        <div class="row justify-content-center">
+          
+          <div class="col-md-4 col-sm-12 pt-2 text-center">
+          
+              {% if msg != "" %}
+                {% if mtype == "d" %}
+                  <div class="alert alert-danger">
+                {% elif mtype == "i" %}
+                  <div class="alert alert-info">
+                {% endif %}
+                      {{ msg }}
+                    </div>
+              {% endif %}
+              <h4 class="mb-3 font-weight-normal font-blue">Please sign in</h4>
+          
+  
+              <form action="/system/login" method="post">
+                  {% csrf_token %}
+                  <div class="form-group font-black pt-3 mt-3">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" required="true" placeholder="Enter username">
+                    </div>
+                    <div class="form-group font-black pt-3 mt-3">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" required="true" placeholder="Your Password">
+                    </div>
+                  <button type="submit" class="mt-6 btn btn-primary">Login</button>
+                </form>
+          </div>
+  
+        </div>
+    </div>
+  </section>
+  {% endblock %}

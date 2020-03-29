@@ -1,0 +1,71 @@
+.navbar{
+  font-size:12px !important;
+}
+
+#home{
+  background: url("../images/homebg.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
+.boxed{
+  background-color:rgba(255,255,255,0.8);
+  border:1px solid #4885ed !important;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.6);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.6);
+    box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.6);
+}
+
+
+.items > .item{
+  border:1px solid #4885ed !important;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.2);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.2);
+    box-shadow: 0px 0px 10px 0px rgba(72,133,237,0.2);
+    overflow: hidden;
+}
+
+.img-center, .divs-center{
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+.verticalScrollContainer{
+  white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: scroll;
+}
+.verticalScrollContainer>div{
+  flex: 1 1 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  padding:10px;
+}
+
+.nav-tabs>li>a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  padding:10px;
+  font-size: 14px;
+
+}
+
+.orderTabs td{
+  padding-top: 10px;
+  background-color: #fcfcfc;
+  color: #000 !important;
+}

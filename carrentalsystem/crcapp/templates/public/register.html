@@ -1,0 +1,397 @@
+{% extends '../index.html' %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<section class="content-section p-3 p-lg-5 d-flex flex-column">
+        <div class="row pt-4">
+                <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/">Home</a></li>
+                          <li class="breadcrumb-item active">Sign up</li>
+                        </ol>
+                      </nav>
+          </div>
+        {% if msg != "" %}
+<div class="row">
+<div class="col-md-12 col-sm-12">
+	<!-- Checking whether it is a danger type or info type needed for the box
+		Will be checked by mtype is d or i
+		-->
+	{% if mtype == "d" or mtype == "a" %}
+	<div class="alert alert-danger">
+		{% elif mtype == "i" %}
+		<div class="alert alert-info">
+			{% endif %}
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			{% if mtype == "a" %}
+			{% for key, values in msg %}
+			<p>{{ key }} : {{ values.0 }}</p>
+			{% endfor %}
+			{% else %}
+			<p>{{ msg }}</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+<form action="/signup" method="post">
+	{% csrf_token %}
+	<div class="container pt-5">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h4>Signup</h4>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h5>Name</h5>
+				<div class="row pt-4">
+					<div class="col-md-6 row">
+						<div class="col-md-3 field-label-responsive">
+							<label for="firstName">First Name <br><small class="font-red">(*) Required</small></label>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+									<div class="input-group-addon" ></i></div>
+									<input type="text" name="firstName" class="form-control" id="firstName"
+										placeholder="First Name" required autofocus>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 row">
+						<div class="col-md-3 field-label-responsive">
+							<label for="lastName">Last Name <br><small class="font-red">(*) Required</small></label>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+									<div class="input-group-addon" ></i></div>
+									<input type="text" name="lastName" class="form-control" id="lastName"
+										placeholder="Last Name" required autofocus>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div class="row">
+                <div class="col-md-12">
+                    <h5>Address</h5>
+                    <div class="row pt-4">
+                        <div class="col-md-6 row">
+                            <div class="col-md-3 field-label-responsive">
+                                    <label for="streetAddress">Street Address <br><small class="font-red">(*) Required</small></label>
+                            </div>
+                            <div class="col-md-9">
+                                    <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <input type="text" name="streetAddress" class="form-control" id="streetAddress"
+                                                    placeholder="Street" required autofocus>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 row">
+                                <div class="col-md-3 field-label-responsive">
+                                        <label for="city">City <br><small class="font-red">(*) Required</small></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                <div class="input-group-addon" ></i></div>
+                                                <input type="text" name="cityAddress" class="form-control" id="city"
+                                                    placeholder="City" required autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                            <div class="col-md-6 row">
+                                    <div class="col-md-3 field-label-responsive">
+                                            <label for="postalCode">Postal Code <br><small class="font-red">(*) Required</small></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                    <div class="input-group-addon" ></i></div>
+                                                    <input type="number" name="postalCodeAddres" class="form-control" id="postalCode"
+                                                        placeholder="Postal Code" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                    <div class="col-md-3 field-label-responsive">
+                                            <label for="state">State <br><small class="font-red">(*) Required</small></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <select class="custom-select" name="stateAddress" required>
+                                                    <option value="">Select a State</option>
+                                                    <option value="NSW">New South Wales</option>
+                                                    <option value="NT">Northern Territory</option>
+                                                    <option value="QLD">Queensland</option>
+                                                    <option value="SA">South Australia</option>
+                                                    <option value="TS">Tasmania</option>
+                                                    <option value="VIC">Victoria</option>
+                                                    <option value="WA">Western Australia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+		<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="DriverLicenseNumber">Drivers License Number</label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" ></i></div>
+						<input type="number" name="driverLicenceNumber" class="form-control" id="DriverLicenseNumber"
+							placeholder="Drivers License Number" autofocus> 
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put Driver's License Number validation error messages here -->
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="DOB">Date Of Birth <br><small class="font-red">(*) Required</small></label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" ></i></div>
+						<!-- <input type="text" name="DOB" class="form-control" id="DOB"
+							placeholder="date of Birth" required autofocus> -->
+						<input data-date-format="yyyy-mm-dd" class="form-control"
+							id="datepicker" placeholder="yyyy-mm-dd" name="DOB" required autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put DOB validation error messages here -->
+					</span>
+				</div>
+			</div>
+        </div>
+        <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="gender">Gender <br><small class="font-red">(*) Required</small></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                            
+                                    <select class="custom-select" name="gender" required>
+                                        <option value="">Select the gender</option>
+                                        <option value="F">Female</option>
+                                        <option value="M">Male</option>
+                                        <option value="O">Other</option>
+                                    </select>
+                                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <!-- Put DOB validation error messages here -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+		<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="phoneNumber">Phone Number <br><small class="font-red">(*) Required</small></label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon"></i></div>
+						<input type="number" name="phoneNumber" class="form-control" id="phoneNumber"
+							placeholder="Phone Number" required autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put phone number validation error messages here -->
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="email">Email Address <br><small class="font-red">(*) Required</small></label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon"></i></div>
+						<input type="email" name="email" class="form-control" id="email"
+							placeholder="you@example.com" required autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put e-mail validation error messages here -->
+					</span>
+				</div>
+			</div>
+        </div>
+        
+        <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="userName">Username <br><small class="font-red">(*) Required</small></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon"></i></div>
+                            <input type="text" name="userName" class="form-control" id="username"
+                                readonly required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <!-- Put e-mail validation error messages here -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-md-3 field-label-responsive">
+                        <label for="password">Password <br><small class="font-red">(*) Required</small></label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <div class="input-group-addon"></i></div>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Min: 6 Characters" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-control-feedback">
+                            <span class="text-danger align-middle">
+                                <!-- Put e-mail validation error messages here -->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-md-3 field-label-responsive">
+                            <label for="email">Confirm Password <br><small class="font-red">(*) Required</small></label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                    <div class="input-group-addon"></i></div>
+                                    <input type="password" name="confirmpassword" class="form-control" id="confpassword"
+                                    placeholder="Min: 6 Characters" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-control-feedback">
+                                <span class="text-danger align-middle" id="alertPW">
+                                    <!-- Put e-mail validation error messages here -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+		
+		<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="occupation">Occupation</label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" ></i></div>
+						<input type="text" name="occupation" class="form-control" id="occupation"
+							placeholder="Occupation" autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put first name validation error messages here -->
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-md-center">
+			<div class="col-md-4 text-center">
+				<button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+			</div>
+		</div>
+  </section>
+  {% endblock %}
+  {% block scripts %}
+  <script>
+        $(document).ready(function() {
+            
+            $('#datepicker').datepicker({
+                weekStart: 1,
+                daysOfWeekHighlighted: "6,0",
+                autoclose: true,
+                todayHighlight: true,
+             });
+            
+
+             $("#firstName, #lastName").change(function() { 
+                var uname = "crc"+$("#firstName").val().toLowerCase().trim()+$("#lastName").val().charAt(0).toLowerCase().trim();
+                $.ajax({
+                        url: "/customer/usernames/list",
+                        type : 'POST', 
+                        success: function(result){
+                            // converting the result string to JSON array
+                            var result = JSON.parse(result);
+                            for(var i=0; i< result.length; i++){
+                                if(uname == result[i]['fields']['userName']){
+                                    uname += "1"
+                                }
+                            }
+                            $("#username").val(uname);
+                        }});
+                    });
+
+            });
+            
+        
+        
+        $("#confpassword").change(function(){
+            if($("#password").val() != $("#confpassword").val()){
+                $("#alertPW").html("Sorry, the passwords do not match.");
+            }else{
+                $("#alertPW").html("");
+            }
+        })
+  </script>
+  {% endblock %}

@@ -1,0 +1,25 @@
+<!-- The payment portal page is a placeholder for the payment system integrated by the system in future installments -->
+{% extends '../base.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<form action="/booking/payment" method="post">
+    {% csrf_token %}
+    <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h2>Payment Portal</h2>
+                    <hr>
+                </div>
+            </div>
+            </div>                  
+
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<!-- Enter scripts here -->
+{% endblock %}

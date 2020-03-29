@@ -1,0 +1,178 @@
+{% extends '../base.html' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Booking</li>
+{% endblock %}
+
+{% block content %}
+
+<table id="tbl" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+  <thead>
+  <tr>
+    <th>Vehicle ID</th>
+    <th>Make Name</th>
+    <th>Model</th>
+    <th>Series</th>
+    <th>Year</th>
+    <th>New Price</th>
+    <th>enginesize</th>
+    <th>fuelSystem</th>
+    <th>tankcapacity</th>
+    <th>power</th>
+    <th>seatingCapacity</th>
+    <th>standardTransmission</th>
+    <th>bodyType</th>
+    <th>driveType</th>
+    <th>wheelbase</th>
+    <th>storeID</th>
+  </tr>
+  </thead>
+  <tbody id="records">
+        <!-- Iterating through the list passed from the view -->
+        {% for vehicle in vehicles %}
+        <tr>
+                <td class="pdttable">{{ vehicle.vehicleID }}</td>
+                <td class="pdttable">{{ vehicle.makeName }}</td>
+                <td class="pdttable">{{ vehicle.model }}</td>
+                <td class="pdttable">{{ vehicle.series }}</td> 
+                <td class="pdttable">{{ vehicle.year }}</td> 
+                <td class="pdttable">{{ vehicle.newPrice }}</td>
+                <td class="pdttable">{{ vehicle.enginesize }}</td> 
+                <td class="pdttable">{{ vehicle.fuelSystem }}</td> 
+                <td class="pdttable">{{ vehicle.tankcapacity }}</td> 
+                <td class="pdttable">{{ vehicle.power }}</td> 
+                <td class="pdttable">{{ vehicle.seatingCapacity }}</td> 
+                <td class="pdttable">{{ vehicle.standardTransmission }}</td> 
+                <td class="pdttable">{{ vehicle.bodyType }}</td> 
+                <td class="pdttable">{{ vehicle.driveType }}</td> 
+                <td class="pdttable">{{ vehicle.wheelbase }}</td> 
+                <td class="pdttable">{{ vehicle.storeID }}</td> 
+            </tr>
+        {% endfor %}
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>Vehicle ID</th>
+    <th>Make Name</th>
+    <th>Model</th>
+    <th>Series</th>
+    <th>Year</th>
+    <th>New Price</th>
+    <th>enginesize</th>
+    <th>fuelSystem</th>
+    <th>tankcapacity</th>
+    <th>power</th>
+    <th>seatingCapacity</th>
+    <th>standardTransmission</th>
+    <th>bodyType</th>
+    <th>driveType</th>
+    <th>wheelbase</th>
+    <th>storeID</th>
+  </tr>
+  </tfoot>
+</table>
+
+<form action="order/booking">
+<div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="pickup">Pickup Date</label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" ></i></div>
+						<!-- <input type="text" name="DOB" class="form-control" id="DOB"
+							placeholder="date of Birth" required autofocus> -->
+						<input data-date-format="dd/mm/yyyy" class="form-control"
+							id="datepicker" placeholder="dd/mm/yyyy" required autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put DOB validation error messages here -->
+					</span>
+				</div>
+			</div>
+  </div>
+  <div class="row">
+			<div class="col-md-3 field-label-responsive">
+				<label for="return">Return Date</label>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+						<div class="input-group-addon" ></i></div>
+						<!-- <input type="text" name="DOB" class="form-control" id="DOB"
+							placeholder="date of Birth" required autofocus> -->
+						<input data-date-format="dd/mm/yyyy" class="form-control"
+							id="datepicker" placeholder="dd/mm/yyyy" required autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-control-feedback">
+					<span class="text-danger align-middle">
+						<!-- Put DOB validation error messages here -->
+					</span>
+				</div>
+			</div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 text-center">
+      <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Continue</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    $(function () {
+        // The tbl is the id value for the table
+      $('#tbl').DataTable({
+        'paging'      : true, // for pagination
+        'lengthChange': false,
+        'searching'   : true, //searching
+        'ordering'    : true, //sorting
+        'info'        : true,
+        'autoWidth'   : true, // keep this true
+        'sScrollX': '100%', // this too
+        "lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]], // for number of items
+          'dom': 'Bfrtip', //export buttons
+          'buttons': [
+            {
+              extend: 'copyHtml5',
+              text: 'Copy',
+              className: 'btn btn-flat btn-primary',
+            },
+            {
+              extend: 'excelHtml5',
+              text: 'Export to Excel',
+              className: 'btn btn-flat btn-primary',
+            },
+            {
+              extend: 'print',
+              className: 'btn btn-flat btn-primary',
+              customize: function ( win ) {
+                $(win.document.body).css('background', '#fff');
+                $(win.document.body).css('padding', '20px');
+              }
+            }
+          ]
+      })
+    })
+          
+  	$('#datepicker').datepicker({
+	    weekStart: 1,
+	    daysOfWeekHighlighted: "6,0",
+	    autoclose: true,
+	    todayHighlight: true,
+	  });
+      </script>
+{% endblock %}

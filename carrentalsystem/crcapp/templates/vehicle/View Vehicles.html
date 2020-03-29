@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Se7en">
+
+    <title>{% block title %}View Vehicles{% endblock %} | Car Rental System</title>
+
+    <!-- Bootstrap and other plugins -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-datepicker3.standalone.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-timepicker.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/daterangepicker.css" %}">
+    <link rel="stylesheet" href="{% static "css/jquery.dataTables.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/dataTables.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/responsive.bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- CRC Styles -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                      <a class="navbar-brand" href="#">CRC System</a>
+                      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item font-blue pt-2 ml-2" style="text-transform: capitalize;">
+                          Welcome, {{ name }}
+                        </li>
+                        
+                      </ul>
+                      <div class="form-inline my-2 my-lg-0">
+                            <a href="/logoff"><i class="fas fa-power-off"></i> Logoff</a>
+                      </div>
+                    </div>
+                  </nav>
+       
+      </header>
+  
+      
+        <main role="main" class="container">
+            {% block content %}
+            {% endblock %}
+            
+    
+    
+        </main>
+
+
+
+  
+      <footer class="footer">
+        <div class="container">
+          <div class="row justify-content-center text-center">
+            <div class="col-4">
+                <p class="mt-5 mb-3 text-muted">&copy; 2018 | Se7en | Team #23</p>
+            </div>
+            </div>
+        </div>
+      </footer>
+  </body>
+
+<!-- Scripts -->
+  <script src="{% static "js/jquery-3.3.1.min.js" %}" ></script>
+  <script src="{% static "js/popper.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-datepicker.min.js" %}" ></script>
+  <script src="{% static "js/bootstrap-timepicker.min.js" %}" ></script>
+  <script src="{% static "js/daterangepicker.js" %}" ></script>
+  <script src="{% static "js/jquery.dataTables.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/dataTables.responsive.min.js" %}" ></script>
+  <script src="{% static "js/responsive.bootstrap.min.js" %}" ></script>
+  <script src="{% static "js/select2.min.js" %}" ></script>
+  <script src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js" ></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js" ></script>
+  <script src="{% static "js/main.js" %}" ></script>
+  {% block scripts %}
+  {% endblock %}
+</html>

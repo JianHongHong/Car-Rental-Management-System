@@ -1,0 +1,95 @@
+{% extends '../index.html' %}
+{% block content %}
+<section class="content-section p-3 p-lg-5" id="home">
+        
+    <div class="row justify-content-md-center mt-1 p-5 mb-5">
+
+      <div class="col-md-8 boxed pt-5 mt-5">
+        <form method="POST" action="/booking/store">
+          {% csrf_token %}
+          <h4 class="font-blue text-center">Select the store</h4>
+          <br>
+        <div class="row">
+         
+          <div class="col-md-6 p-3">
+        
+              <div class="form-group">
+                <select class="form-control" name="pickUpStore" id="pickupStore" required>
+                  <option value=""> SELECT PICKUP STORE  </option>
+                  {% for store in stores %}
+                    <option value="{{ store.storeID }}">{{ store.storeName }}</option>
+                  {% endfor %}
+                </select>
+          
+            </div>
+            </div>
+            <div class="col-md-6 p-3">
+              <div class="form-group">
+                <select class="form-control" name="returnStore" id="returnStore" required>
+                  <option value=""> SELECT RETURN STORE  </option>
+                  {% for store in stores %}
+                    <option value="{{ store.storeID }}">{{ store.storeName }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row mt-5 mb-5">
+
+          
+              <div class="col-md-6">
+                
+                  <div class="form-group">
+                      <input data-date-format="yyyy-mm-dd" name="pickupdate" class="form-control"
+                      id="pickupdate" placeholder="Pickup Date: yyyy-mm-dd" min='{{ todaysDate | date:"Y-m-d"}}' required >
+              
+                </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <input data-date-format="yyyy-mm-dd" name="returndate" class="form-control"
+                      id="returndate" placeholder="Return Date: yyyy-mm-dd" required >
+                  </div>
+                </div>
+    
+                
+              </div>
+              <div class="row justify-content-center mt-5">
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="submit" class="btn btn-flat btn-primary divs-center" id="selectBtn" value="SELECT" />
+                        </div>
+                  </div>
+             
+      </div>
+    </form>
+    </div>
+  </section>
+
+  <hr class="m-0">
+
+  <section class="content-section p-3 p-lg-5 d-flex flex-column" id="vehicles">
+    <h4 class="mb-5">Newly added vehicles to our fleet</h4>
+    <div class="row flex verticalScrollContainer">
+
+        {% for item in vehicles  %}
+     <div class="col-md-3 items p-2 text-center">
+        <div class="item p-2">
+            <h5>Make: {{ item.makeName | title }}</h5>
+            <p>Model: {{ item.model | title  }}</p>
+            <p>Series: {{ item.series | title }}</p>
+            <p>Year: {{ item.year }}</p>
+            <img src="static/images/carIcon.png" class="img-responsive img-center" width="50%">
+            <a href="/vehicle/{{ item.vehicleID }}"> <div class="btn btn-primary btn-sm">View More Details</div></a>
+     </div>
+        
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </section>
+  {% endblock %}
